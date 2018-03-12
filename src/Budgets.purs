@@ -20,72 +20,96 @@ import Data.StrMap as StrMap
 import AWS.Request as Request
 import AWS.Request.Types as Types
 
-serviceName = "Budgets" :: String
-
 
 -- | <p>Creates a budget and, if included, notifications and subscribers. </p>
 createBudget :: forall eff. CreateBudgetRequest -> Aff (exception :: EXCEPTION | eff) CreateBudgetResponse
-createBudget = Request.request serviceName "createBudget" 
+createBudget = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "createBudget"
 
 
 -- | <p>Creates a notification. You must create the budget before you create the associated notification.</p>
 createNotification :: forall eff. CreateNotificationRequest -> Aff (exception :: EXCEPTION | eff) CreateNotificationResponse
-createNotification = Request.request serviceName "createNotification" 
+createNotification = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "createNotification"
 
 
 -- | <p>Creates a subscriber. You must create the associated budget and notification before you create the subscriber.</p>
 createSubscriber :: forall eff. CreateSubscriberRequest -> Aff (exception :: EXCEPTION | eff) CreateSubscriberResponse
-createSubscriber = Request.request serviceName "createSubscriber" 
+createSubscriber = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "createSubscriber"
 
 
 -- | <p>Deletes a budget. You can delete your budget at any time.</p> <p> <b>Deleting a budget also deletes the notifications and subscribers associated with that budget.</b> </p>
 deleteBudget :: forall eff. DeleteBudgetRequest -> Aff (exception :: EXCEPTION | eff) DeleteBudgetResponse
-deleteBudget = Request.request serviceName "deleteBudget" 
+deleteBudget = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "deleteBudget"
 
 
 -- | <p>Deletes a notification.</p> <p> <b>Deleting a notification also deletes the subscribers associated with the notification.</b> </p>
 deleteNotification :: forall eff. DeleteNotificationRequest -> Aff (exception :: EXCEPTION | eff) DeleteNotificationResponse
-deleteNotification = Request.request serviceName "deleteNotification" 
+deleteNotification = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "deleteNotification"
 
 
 -- | <p>Deletes a subscriber.</p> <p> <b>Deleting the last subscriber to a notification also deletes the notification.</b> </p>
 deleteSubscriber :: forall eff. DeleteSubscriberRequest -> Aff (exception :: EXCEPTION | eff) DeleteSubscriberResponse
-deleteSubscriber = Request.request serviceName "deleteSubscriber" 
+deleteSubscriber = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "deleteSubscriber"
 
 
 -- | <p>Describes a budget.</p>
 describeBudget :: forall eff. DescribeBudgetRequest -> Aff (exception :: EXCEPTION | eff) DescribeBudgetResponse
-describeBudget = Request.request serviceName "describeBudget" 
+describeBudget = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "describeBudget"
 
 
 -- | <p>Lists the budgets associated with an account.</p>
 describeBudgets :: forall eff. DescribeBudgetsRequest -> Aff (exception :: EXCEPTION | eff) DescribeBudgetsResponse
-describeBudgets = Request.request serviceName "describeBudgets" 
+describeBudgets = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "describeBudgets"
 
 
 -- | <p>Lists the notifications associated with a budget.</p>
 describeNotificationsForBudget :: forall eff. DescribeNotificationsForBudgetRequest -> Aff (exception :: EXCEPTION | eff) DescribeNotificationsForBudgetResponse
-describeNotificationsForBudget = Request.request serviceName "describeNotificationsForBudget" 
+describeNotificationsForBudget = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "describeNotificationsForBudget"
 
 
 -- | <p>Lists the subscribers associated with a notification.</p>
 describeSubscribersForNotification :: forall eff. DescribeSubscribersForNotificationRequest -> Aff (exception :: EXCEPTION | eff) DescribeSubscribersForNotificationResponse
-describeSubscribersForNotification = Request.request serviceName "describeSubscribersForNotification" 
+describeSubscribersForNotification = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "describeSubscribersForNotification"
 
 
 -- | <p>Updates a budget. You can change every part of a budget except for the <code>budgetName</code> and the <code>calculatedSpend</code>. When a budget is modified, the <code>calculatedSpend</code> drops to zero until AWS has new usage data to use for forecasting.</p>
 updateBudget :: forall eff. UpdateBudgetRequest -> Aff (exception :: EXCEPTION | eff) UpdateBudgetResponse
-updateBudget = Request.request serviceName "updateBudget" 
+updateBudget = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "updateBudget"
 
 
 -- | <p>Updates a notification.</p>
 updateNotification :: forall eff. UpdateNotificationRequest -> Aff (exception :: EXCEPTION | eff) UpdateNotificationResponse
-updateNotification = Request.request serviceName "updateNotification" 
+updateNotification = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "updateNotification"
 
 
 -- | <p>Updates a subscriber.</p>
 updateSubscriber :: forall eff. UpdateSubscriberRequest -> Aff (exception :: EXCEPTION | eff) UpdateSubscriberResponse
-updateSubscriber = Request.request serviceName "updateSubscriber" 
+updateSubscriber = Request.request service method  where
+    service = Request.ServiceName "Budgets"
+    method = Request.MethodName "updateSubscriber"
 
 
 -- | <p>The account ID of the customer. It should be a 12 digit number.</p>

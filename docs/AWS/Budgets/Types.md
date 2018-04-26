@@ -28,7 +28,7 @@ Encode AccountId
 
 ``` purescript
 newtype Budget
-  = Budget { "BudgetName" :: BudgetName, "BudgetLimit" :: NullOrUndefined (Spend), "CostFilters" :: NullOrUndefined (CostFilters), "CostTypes" :: NullOrUndefined (CostTypes), "TimeUnit" :: TimeUnit, "TimePeriod" :: NullOrUndefined (TimePeriod), "CalculatedSpend" :: NullOrUndefined (CalculatedSpend), "BudgetType" :: BudgetType }
+  = Budget { "BudgetName" :: BudgetName, "BudgetLimit" :: Maybe (Spend), "CostFilters" :: Maybe (CostFilters), "CostTypes" :: Maybe (CostTypes), "TimeUnit" :: TimeUnit, "TimePeriod" :: Maybe (TimePeriod), "CalculatedSpend" :: Maybe (CalculatedSpend), "BudgetType" :: BudgetType }
 ```
 
 <p>Represents the output of the <code>CreateBudget</code> operation. The content consists of the detailed metadata and data file information, and the current status of the <code>budget</code>.</p> <p>The ARN pattern for a budget is: <code>arn:aws:budgetservice::AccountId:budget/budgetName</code> </p>
@@ -53,7 +53,7 @@ Constructs Budget from required parameters
 #### `newBudget'`
 
 ``` purescript
-newBudget' :: BudgetName -> BudgetType -> TimeUnit -> ({ "BudgetName" :: BudgetName, "BudgetLimit" :: NullOrUndefined (Spend), "CostFilters" :: NullOrUndefined (CostFilters), "CostTypes" :: NullOrUndefined (CostTypes), "TimeUnit" :: TimeUnit, "TimePeriod" :: NullOrUndefined (TimePeriod), "CalculatedSpend" :: NullOrUndefined (CalculatedSpend), "BudgetType" :: BudgetType } -> { "BudgetName" :: BudgetName, "BudgetLimit" :: NullOrUndefined (Spend), "CostFilters" :: NullOrUndefined (CostFilters), "CostTypes" :: NullOrUndefined (CostTypes), "TimeUnit" :: TimeUnit, "TimePeriod" :: NullOrUndefined (TimePeriod), "CalculatedSpend" :: NullOrUndefined (CalculatedSpend), "BudgetType" :: BudgetType }) -> Budget
+newBudget' :: BudgetName -> BudgetType -> TimeUnit -> ({ "BudgetName" :: BudgetName, "BudgetLimit" :: Maybe (Spend), "CostFilters" :: Maybe (CostFilters), "CostTypes" :: Maybe (CostTypes), "TimeUnit" :: TimeUnit, "TimePeriod" :: Maybe (TimePeriod), "CalculatedSpend" :: Maybe (CalculatedSpend), "BudgetType" :: BudgetType } -> { "BudgetName" :: BudgetName, "BudgetLimit" :: Maybe (Spend), "CostFilters" :: Maybe (CostFilters), "CostTypes" :: Maybe (CostTypes), "TimeUnit" :: TimeUnit, "TimePeriod" :: Maybe (TimePeriod), "CalculatedSpend" :: Maybe (CalculatedSpend), "BudgetType" :: BudgetType }) -> Budget
 ```
 
 Constructs Budget's fields from required parameters
@@ -116,7 +116,7 @@ Encode Budgets
 
 ``` purescript
 newtype CalculatedSpend
-  = CalculatedSpend { "ActualSpend" :: Spend, "ForecastedSpend" :: NullOrUndefined (Spend) }
+  = CalculatedSpend { "ActualSpend" :: Spend, "ForecastedSpend" :: Maybe (Spend) }
 ```
 
 <p>The spend objects associated with this budget. The <code>actualSpend</code> tracks how much you've used, cost, usage, or RI units, and the <code>forecastedSpend</code> tracks how much you are predicted to spend if your current usage remains steady.</p> <p>For example, if it is the 20th of the month and you have spent <code>50</code> dollars on Amazon EC2, your <code>actualSpend</code> is <code>50 USD</code>, and your <code>forecastedSpend</code> is <code>75 USD</code>.</p>
@@ -141,7 +141,7 @@ Constructs CalculatedSpend from required parameters
 #### `newCalculatedSpend'`
 
 ``` purescript
-newCalculatedSpend' :: Spend -> ({ "ActualSpend" :: Spend, "ForecastedSpend" :: NullOrUndefined (Spend) } -> { "ActualSpend" :: Spend, "ForecastedSpend" :: NullOrUndefined (Spend) }) -> CalculatedSpend
+newCalculatedSpend' :: Spend -> ({ "ActualSpend" :: Spend, "ForecastedSpend" :: Maybe (Spend) } -> { "ActualSpend" :: Spend, "ForecastedSpend" :: Maybe (Spend) }) -> CalculatedSpend
 ```
 
 Constructs CalculatedSpend's fields from required parameters
@@ -186,7 +186,7 @@ Encode CostFilters
 
 ``` purescript
 newtype CostTypes
-  = CostTypes { "IncludeTax" :: NullOrUndefined (NullableBoolean), "IncludeSubscription" :: NullOrUndefined (NullableBoolean), "UseBlended" :: NullOrUndefined (NullableBoolean), "IncludeRefund" :: NullOrUndefined (NullableBoolean), "IncludeCredit" :: NullOrUndefined (NullableBoolean), "IncludeUpfront" :: NullOrUndefined (NullableBoolean), "IncludeRecurring" :: NullOrUndefined (NullableBoolean), "IncludeOtherSubscription" :: NullOrUndefined (NullableBoolean), "IncludeSupport" :: NullOrUndefined (NullableBoolean), "IncludeDiscount" :: NullOrUndefined (NullableBoolean), "UseAmortized" :: NullOrUndefined (NullableBoolean) }
+  = CostTypes { "IncludeTax" :: Maybe (NullableBoolean), "IncludeSubscription" :: Maybe (NullableBoolean), "UseBlended" :: Maybe (NullableBoolean), "IncludeRefund" :: Maybe (NullableBoolean), "IncludeCredit" :: Maybe (NullableBoolean), "IncludeUpfront" :: Maybe (NullableBoolean), "IncludeRecurring" :: Maybe (NullableBoolean), "IncludeOtherSubscription" :: Maybe (NullableBoolean), "IncludeSupport" :: Maybe (NullableBoolean), "IncludeDiscount" :: Maybe (NullableBoolean), "UseAmortized" :: Maybe (NullableBoolean) }
 ```
 
 <p>The types of cost included in a budget, such as tax and subscriptions.</p>
@@ -211,7 +211,7 @@ Constructs CostTypes from required parameters
 #### `newCostTypes'`
 
 ``` purescript
-newCostTypes' :: ({ "IncludeTax" :: NullOrUndefined (NullableBoolean), "IncludeSubscription" :: NullOrUndefined (NullableBoolean), "UseBlended" :: NullOrUndefined (NullableBoolean), "IncludeRefund" :: NullOrUndefined (NullableBoolean), "IncludeCredit" :: NullOrUndefined (NullableBoolean), "IncludeUpfront" :: NullOrUndefined (NullableBoolean), "IncludeRecurring" :: NullOrUndefined (NullableBoolean), "IncludeOtherSubscription" :: NullOrUndefined (NullableBoolean), "IncludeSupport" :: NullOrUndefined (NullableBoolean), "IncludeDiscount" :: NullOrUndefined (NullableBoolean), "UseAmortized" :: NullOrUndefined (NullableBoolean) } -> { "IncludeTax" :: NullOrUndefined (NullableBoolean), "IncludeSubscription" :: NullOrUndefined (NullableBoolean), "UseBlended" :: NullOrUndefined (NullableBoolean), "IncludeRefund" :: NullOrUndefined (NullableBoolean), "IncludeCredit" :: NullOrUndefined (NullableBoolean), "IncludeUpfront" :: NullOrUndefined (NullableBoolean), "IncludeRecurring" :: NullOrUndefined (NullableBoolean), "IncludeOtherSubscription" :: NullOrUndefined (NullableBoolean), "IncludeSupport" :: NullOrUndefined (NullableBoolean), "IncludeDiscount" :: NullOrUndefined (NullableBoolean), "UseAmortized" :: NullOrUndefined (NullableBoolean) }) -> CostTypes
+newCostTypes' :: ({ "IncludeTax" :: Maybe (NullableBoolean), "IncludeSubscription" :: Maybe (NullableBoolean), "UseBlended" :: Maybe (NullableBoolean), "IncludeRefund" :: Maybe (NullableBoolean), "IncludeCredit" :: Maybe (NullableBoolean), "IncludeUpfront" :: Maybe (NullableBoolean), "IncludeRecurring" :: Maybe (NullableBoolean), "IncludeOtherSubscription" :: Maybe (NullableBoolean), "IncludeSupport" :: Maybe (NullableBoolean), "IncludeDiscount" :: Maybe (NullableBoolean), "UseAmortized" :: Maybe (NullableBoolean) } -> { "IncludeTax" :: Maybe (NullableBoolean), "IncludeSubscription" :: Maybe (NullableBoolean), "UseBlended" :: Maybe (NullableBoolean), "IncludeRefund" :: Maybe (NullableBoolean), "IncludeCredit" :: Maybe (NullableBoolean), "IncludeUpfront" :: Maybe (NullableBoolean), "IncludeRecurring" :: Maybe (NullableBoolean), "IncludeOtherSubscription" :: Maybe (NullableBoolean), "IncludeSupport" :: Maybe (NullableBoolean), "IncludeDiscount" :: Maybe (NullableBoolean), "UseAmortized" :: Maybe (NullableBoolean) }) -> CostTypes
 ```
 
 Constructs CostTypes's fields from required parameters
@@ -220,7 +220,7 @@ Constructs CostTypes's fields from required parameters
 
 ``` purescript
 newtype CreateBudgetRequest
-  = CreateBudgetRequest { "AccountId" :: AccountId, "Budget" :: Budget, "NotificationsWithSubscribers" :: NullOrUndefined (NotificationWithSubscribersList) }
+  = CreateBudgetRequest { "AccountId" :: AccountId, "Budget" :: Budget, "NotificationsWithSubscribers" :: Maybe (NotificationWithSubscribersList) }
 ```
 
 <p> Request of CreateBudget </p>
@@ -245,7 +245,7 @@ Constructs CreateBudgetRequest from required parameters
 #### `newCreateBudgetRequest'`
 
 ``` purescript
-newCreateBudgetRequest' :: AccountId -> Budget -> ({ "AccountId" :: AccountId, "Budget" :: Budget, "NotificationsWithSubscribers" :: NullOrUndefined (NotificationWithSubscribersList) } -> { "AccountId" :: AccountId, "Budget" :: Budget, "NotificationsWithSubscribers" :: NullOrUndefined (NotificationWithSubscribersList) }) -> CreateBudgetRequest
+newCreateBudgetRequest' :: AccountId -> Budget -> ({ "AccountId" :: AccountId, "Budget" :: Budget, "NotificationsWithSubscribers" :: Maybe (NotificationWithSubscribersList) } -> { "AccountId" :: AccountId, "Budget" :: Budget, "NotificationsWithSubscribers" :: Maybe (NotificationWithSubscribersList) }) -> CreateBudgetRequest
 ```
 
 Constructs CreateBudgetRequest's fields from required parameters
@@ -376,7 +376,7 @@ Encode CreateSubscriberResponse
 
 ``` purescript
 newtype CreationLimitExceededException
-  = CreationLimitExceededException { "Message" :: NullOrUndefined (ErrorMessage') }
+  = CreationLimitExceededException { "Message" :: Maybe (ErrorMessage') }
 ```
 
 <p>You've exceeded the notification or subscriber limit.</p>
@@ -401,7 +401,7 @@ Constructs CreationLimitExceededException from required parameters
 #### `newCreationLimitExceededException'`
 
 ``` purescript
-newCreationLimitExceededException' :: ({ "Message" :: NullOrUndefined (ErrorMessage') } -> { "Message" :: NullOrUndefined (ErrorMessage') }) -> CreationLimitExceededException
+newCreationLimitExceededException' :: ({ "Message" :: Maybe (ErrorMessage') } -> { "Message" :: Maybe (ErrorMessage') }) -> CreationLimitExceededException
 ```
 
 Constructs CreationLimitExceededException's fields from required parameters
@@ -600,7 +600,7 @@ Constructs DescribeBudgetRequest's fields from required parameters
 
 ``` purescript
 newtype DescribeBudgetResponse
-  = DescribeBudgetResponse { "Budget" :: NullOrUndefined (Budget) }
+  = DescribeBudgetResponse { "Budget" :: Maybe (Budget) }
 ```
 
 <p> Response of DescribeBudget </p>
@@ -625,7 +625,7 @@ Constructs DescribeBudgetResponse from required parameters
 #### `newDescribeBudgetResponse'`
 
 ``` purescript
-newDescribeBudgetResponse' :: ({ "Budget" :: NullOrUndefined (Budget) } -> { "Budget" :: NullOrUndefined (Budget) }) -> DescribeBudgetResponse
+newDescribeBudgetResponse' :: ({ "Budget" :: Maybe (Budget) } -> { "Budget" :: Maybe (Budget) }) -> DescribeBudgetResponse
 ```
 
 Constructs DescribeBudgetResponse's fields from required parameters
@@ -634,7 +634,7 @@ Constructs DescribeBudgetResponse's fields from required parameters
 
 ``` purescript
 newtype DescribeBudgetsRequest
-  = DescribeBudgetsRequest { "AccountId" :: AccountId, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) }
+  = DescribeBudgetsRequest { "AccountId" :: AccountId, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) }
 ```
 
 <p> Request of DescribeBudgets </p>
@@ -659,7 +659,7 @@ Constructs DescribeBudgetsRequest from required parameters
 #### `newDescribeBudgetsRequest'`
 
 ``` purescript
-newDescribeBudgetsRequest' :: AccountId -> ({ "AccountId" :: AccountId, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) } -> { "AccountId" :: AccountId, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) }) -> DescribeBudgetsRequest
+newDescribeBudgetsRequest' :: AccountId -> ({ "AccountId" :: AccountId, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) } -> { "AccountId" :: AccountId, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) }) -> DescribeBudgetsRequest
 ```
 
 Constructs DescribeBudgetsRequest's fields from required parameters
@@ -668,7 +668,7 @@ Constructs DescribeBudgetsRequest's fields from required parameters
 
 ``` purescript
 newtype DescribeBudgetsResponse
-  = DescribeBudgetsResponse { "Budgets" :: NullOrUndefined (Budgets), "NextToken" :: NullOrUndefined (GenericString) }
+  = DescribeBudgetsResponse { "Budgets" :: Maybe (Budgets), "NextToken" :: Maybe (GenericString) }
 ```
 
 <p> Response of DescribeBudgets </p>
@@ -693,7 +693,7 @@ Constructs DescribeBudgetsResponse from required parameters
 #### `newDescribeBudgetsResponse'`
 
 ``` purescript
-newDescribeBudgetsResponse' :: ({ "Budgets" :: NullOrUndefined (Budgets), "NextToken" :: NullOrUndefined (GenericString) } -> { "Budgets" :: NullOrUndefined (Budgets), "NextToken" :: NullOrUndefined (GenericString) }) -> DescribeBudgetsResponse
+newDescribeBudgetsResponse' :: ({ "Budgets" :: Maybe (Budgets), "NextToken" :: Maybe (GenericString) } -> { "Budgets" :: Maybe (Budgets), "NextToken" :: Maybe (GenericString) }) -> DescribeBudgetsResponse
 ```
 
 Constructs DescribeBudgetsResponse's fields from required parameters
@@ -702,7 +702,7 @@ Constructs DescribeBudgetsResponse's fields from required parameters
 
 ``` purescript
 newtype DescribeNotificationsForBudgetRequest
-  = DescribeNotificationsForBudgetRequest { "AccountId" :: AccountId, "BudgetName" :: BudgetName, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) }
+  = DescribeNotificationsForBudgetRequest { "AccountId" :: AccountId, "BudgetName" :: BudgetName, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) }
 ```
 
 <p> Request of DescribeNotificationsForBudget </p>
@@ -727,7 +727,7 @@ Constructs DescribeNotificationsForBudgetRequest from required parameters
 #### `newDescribeNotificationsForBudgetRequest'`
 
 ``` purescript
-newDescribeNotificationsForBudgetRequest' :: AccountId -> BudgetName -> ({ "AccountId" :: AccountId, "BudgetName" :: BudgetName, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) } -> { "AccountId" :: AccountId, "BudgetName" :: BudgetName, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) }) -> DescribeNotificationsForBudgetRequest
+newDescribeNotificationsForBudgetRequest' :: AccountId -> BudgetName -> ({ "AccountId" :: AccountId, "BudgetName" :: BudgetName, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) } -> { "AccountId" :: AccountId, "BudgetName" :: BudgetName, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) }) -> DescribeNotificationsForBudgetRequest
 ```
 
 Constructs DescribeNotificationsForBudgetRequest's fields from required parameters
@@ -736,7 +736,7 @@ Constructs DescribeNotificationsForBudgetRequest's fields from required paramete
 
 ``` purescript
 newtype DescribeNotificationsForBudgetResponse
-  = DescribeNotificationsForBudgetResponse { "Notifications" :: NullOrUndefined (Notifications), "NextToken" :: NullOrUndefined (GenericString) }
+  = DescribeNotificationsForBudgetResponse { "Notifications" :: Maybe (Notifications), "NextToken" :: Maybe (GenericString) }
 ```
 
 <p> Response of GetNotificationsForBudget </p>
@@ -761,7 +761,7 @@ Constructs DescribeNotificationsForBudgetResponse from required parameters
 #### `newDescribeNotificationsForBudgetResponse'`
 
 ``` purescript
-newDescribeNotificationsForBudgetResponse' :: ({ "Notifications" :: NullOrUndefined (Notifications), "NextToken" :: NullOrUndefined (GenericString) } -> { "Notifications" :: NullOrUndefined (Notifications), "NextToken" :: NullOrUndefined (GenericString) }) -> DescribeNotificationsForBudgetResponse
+newDescribeNotificationsForBudgetResponse' :: ({ "Notifications" :: Maybe (Notifications), "NextToken" :: Maybe (GenericString) } -> { "Notifications" :: Maybe (Notifications), "NextToken" :: Maybe (GenericString) }) -> DescribeNotificationsForBudgetResponse
 ```
 
 Constructs DescribeNotificationsForBudgetResponse's fields from required parameters
@@ -770,7 +770,7 @@ Constructs DescribeNotificationsForBudgetResponse's fields from required paramet
 
 ``` purescript
 newtype DescribeSubscribersForNotificationRequest
-  = DescribeSubscribersForNotificationRequest { "AccountId" :: AccountId, "BudgetName" :: BudgetName, "Notification" :: Notification, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) }
+  = DescribeSubscribersForNotificationRequest { "AccountId" :: AccountId, "BudgetName" :: BudgetName, "Notification" :: Notification, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) }
 ```
 
 <p> Request of DescribeSubscribersForNotification </p>
@@ -795,7 +795,7 @@ Constructs DescribeSubscribersForNotificationRequest from required parameters
 #### `newDescribeSubscribersForNotificationRequest'`
 
 ``` purescript
-newDescribeSubscribersForNotificationRequest' :: AccountId -> BudgetName -> Notification -> ({ "AccountId" :: AccountId, "BudgetName" :: BudgetName, "Notification" :: Notification, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) } -> { "AccountId" :: AccountId, "BudgetName" :: BudgetName, "Notification" :: Notification, "MaxResults" :: NullOrUndefined (MaxResults), "NextToken" :: NullOrUndefined (GenericString) }) -> DescribeSubscribersForNotificationRequest
+newDescribeSubscribersForNotificationRequest' :: AccountId -> BudgetName -> Notification -> ({ "AccountId" :: AccountId, "BudgetName" :: BudgetName, "Notification" :: Notification, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) } -> { "AccountId" :: AccountId, "BudgetName" :: BudgetName, "Notification" :: Notification, "MaxResults" :: Maybe (MaxResults), "NextToken" :: Maybe (GenericString) }) -> DescribeSubscribersForNotificationRequest
 ```
 
 Constructs DescribeSubscribersForNotificationRequest's fields from required parameters
@@ -804,7 +804,7 @@ Constructs DescribeSubscribersForNotificationRequest's fields from required para
 
 ``` purescript
 newtype DescribeSubscribersForNotificationResponse
-  = DescribeSubscribersForNotificationResponse { "Subscribers" :: NullOrUndefined (Subscribers), "NextToken" :: NullOrUndefined (GenericString) }
+  = DescribeSubscribersForNotificationResponse { "Subscribers" :: Maybe (Subscribers), "NextToken" :: Maybe (GenericString) }
 ```
 
 <p> Response of DescribeSubscribersForNotification </p>
@@ -829,7 +829,7 @@ Constructs DescribeSubscribersForNotificationResponse from required parameters
 #### `newDescribeSubscribersForNotificationResponse'`
 
 ``` purescript
-newDescribeSubscribersForNotificationResponse' :: ({ "Subscribers" :: NullOrUndefined (Subscribers), "NextToken" :: NullOrUndefined (GenericString) } -> { "Subscribers" :: NullOrUndefined (Subscribers), "NextToken" :: NullOrUndefined (GenericString) }) -> DescribeSubscribersForNotificationResponse
+newDescribeSubscribersForNotificationResponse' :: ({ "Subscribers" :: Maybe (Subscribers), "NextToken" :: Maybe (GenericString) } -> { "Subscribers" :: Maybe (Subscribers), "NextToken" :: Maybe (GenericString) }) -> DescribeSubscribersForNotificationResponse
 ```
 
 Constructs DescribeSubscribersForNotificationResponse's fields from required parameters
@@ -854,7 +854,7 @@ Encode DimensionValues
 
 ``` purescript
 newtype DuplicateRecordException
-  = DuplicateRecordException { "Message" :: NullOrUndefined (ErrorMessage') }
+  = DuplicateRecordException { "Message" :: Maybe (ErrorMessage') }
 ```
 
 <p>The budget name already exists. Budget names must be unique within an account.</p>
@@ -879,7 +879,7 @@ Constructs DuplicateRecordException from required parameters
 #### `newDuplicateRecordException'`
 
 ``` purescript
-newDuplicateRecordException' :: ({ "Message" :: NullOrUndefined (ErrorMessage') } -> { "Message" :: NullOrUndefined (ErrorMessage') }) -> DuplicateRecordException
+newDuplicateRecordException' :: ({ "Message" :: Maybe (ErrorMessage') } -> { "Message" :: Maybe (ErrorMessage') }) -> DuplicateRecordException
 ```
 
 Constructs DuplicateRecordException's fields from required parameters
@@ -888,7 +888,7 @@ Constructs DuplicateRecordException's fields from required parameters
 
 ``` purescript
 newtype ExpiredNextTokenException
-  = ExpiredNextTokenException { "Message" :: NullOrUndefined (ErrorMessage') }
+  = ExpiredNextTokenException { "Message" :: Maybe (ErrorMessage') }
 ```
 
 <p>The pagination token expired.</p>
@@ -913,7 +913,7 @@ Constructs ExpiredNextTokenException from required parameters
 #### `newExpiredNextTokenException'`
 
 ``` purescript
-newExpiredNextTokenException' :: ({ "Message" :: NullOrUndefined (ErrorMessage') } -> { "Message" :: NullOrUndefined (ErrorMessage') }) -> ExpiredNextTokenException
+newExpiredNextTokenException' :: ({ "Message" :: Maybe (ErrorMessage') } -> { "Message" :: Maybe (ErrorMessage') }) -> ExpiredNextTokenException
 ```
 
 Constructs ExpiredNextTokenException's fields from required parameters
@@ -958,7 +958,7 @@ Encode GenericTimestamp
 
 ``` purescript
 newtype InternalErrorException
-  = InternalErrorException { "Message" :: NullOrUndefined (ErrorMessage') }
+  = InternalErrorException { "Message" :: Maybe (ErrorMessage') }
 ```
 
 <p>An error on the server occurred during the processing of your request. Try again later.</p>
@@ -983,7 +983,7 @@ Constructs InternalErrorException from required parameters
 #### `newInternalErrorException'`
 
 ``` purescript
-newInternalErrorException' :: ({ "Message" :: NullOrUndefined (ErrorMessage') } -> { "Message" :: NullOrUndefined (ErrorMessage') }) -> InternalErrorException
+newInternalErrorException' :: ({ "Message" :: Maybe (ErrorMessage') } -> { "Message" :: Maybe (ErrorMessage') }) -> InternalErrorException
 ```
 
 Constructs InternalErrorException's fields from required parameters
@@ -992,7 +992,7 @@ Constructs InternalErrorException's fields from required parameters
 
 ``` purescript
 newtype InvalidNextTokenException
-  = InvalidNextTokenException { "Message" :: NullOrUndefined (ErrorMessage') }
+  = InvalidNextTokenException { "Message" :: Maybe (ErrorMessage') }
 ```
 
 <p>The pagination token is invalid.</p>
@@ -1017,7 +1017,7 @@ Constructs InvalidNextTokenException from required parameters
 #### `newInvalidNextTokenException'`
 
 ``` purescript
-newInvalidNextTokenException' :: ({ "Message" :: NullOrUndefined (ErrorMessage') } -> { "Message" :: NullOrUndefined (ErrorMessage') }) -> InvalidNextTokenException
+newInvalidNextTokenException' :: ({ "Message" :: Maybe (ErrorMessage') } -> { "Message" :: Maybe (ErrorMessage') }) -> InvalidNextTokenException
 ```
 
 Constructs InvalidNextTokenException's fields from required parameters
@@ -1026,7 +1026,7 @@ Constructs InvalidNextTokenException's fields from required parameters
 
 ``` purescript
 newtype InvalidParameterException
-  = InvalidParameterException { "Message" :: NullOrUndefined (ErrorMessage') }
+  = InvalidParameterException { "Message" :: Maybe (ErrorMessage') }
 ```
 
 <p>An error on the client occurred. Typically, the cause is an invalid input value.</p>
@@ -1051,7 +1051,7 @@ Constructs InvalidParameterException from required parameters
 #### `newInvalidParameterException'`
 
 ``` purescript
-newInvalidParameterException' :: ({ "Message" :: NullOrUndefined (ErrorMessage') } -> { "Message" :: NullOrUndefined (ErrorMessage') }) -> InvalidParameterException
+newInvalidParameterException' :: ({ "Message" :: Maybe (ErrorMessage') } -> { "Message" :: Maybe (ErrorMessage') }) -> InvalidParameterException
 ```
 
 Constructs InvalidParameterException's fields from required parameters
@@ -1078,7 +1078,7 @@ Encode MaxResults
 
 ``` purescript
 newtype NotFoundException
-  = NotFoundException { "Message" :: NullOrUndefined (ErrorMessage') }
+  = NotFoundException { "Message" :: Maybe (ErrorMessage') }
 ```
 
 <p>We can’t locate the resource that you specified.</p>
@@ -1103,7 +1103,7 @@ Constructs NotFoundException from required parameters
 #### `newNotFoundException'`
 
 ``` purescript
-newNotFoundException' :: ({ "Message" :: NullOrUndefined (ErrorMessage') } -> { "Message" :: NullOrUndefined (ErrorMessage') }) -> NotFoundException
+newNotFoundException' :: ({ "Message" :: Maybe (ErrorMessage') } -> { "Message" :: Maybe (ErrorMessage') }) -> NotFoundException
 ```
 
 Constructs NotFoundException's fields from required parameters
@@ -1112,7 +1112,7 @@ Constructs NotFoundException's fields from required parameters
 
 ``` purescript
 newtype Notification
-  = Notification { "NotificationType" :: NotificationType, "ComparisonOperator" :: ComparisonOperator, "Threshold" :: NotificationThreshold, "ThresholdType" :: NullOrUndefined (ThresholdType) }
+  = Notification { "NotificationType" :: NotificationType, "ComparisonOperator" :: ComparisonOperator, "Threshold" :: NotificationThreshold, "ThresholdType" :: Maybe (ThresholdType) }
 ```
 
 <p>A notification associated with a budget. A budget can have up to five notifications. </p> <p>Each notification must have at least one subscriber. A notification can have one SNS subscriber and up to ten email subscribers, for a total of 11 subscribers.</p> <p>For example, if you have a budget for 200 dollars and you want to be notified when you go over 160 dollars, create a notification with the following parameters:</p> <ul> <li> <p>A notificationType of <code>ACTUAL</code> </p> </li> <li> <p>A comparisonOperator of <code>GREATER_THAN</code> </p> </li> <li> <p>A notification threshold of <code>80</code> </p> </li> </ul>
@@ -1137,7 +1137,7 @@ Constructs Notification from required parameters
 #### `newNotification'`
 
 ``` purescript
-newNotification' :: ComparisonOperator -> NotificationType -> NotificationThreshold -> ({ "NotificationType" :: NotificationType, "ComparisonOperator" :: ComparisonOperator, "Threshold" :: NotificationThreshold, "ThresholdType" :: NullOrUndefined (ThresholdType) } -> { "NotificationType" :: NotificationType, "ComparisonOperator" :: ComparisonOperator, "Threshold" :: NotificationThreshold, "ThresholdType" :: NullOrUndefined (ThresholdType) }) -> Notification
+newNotification' :: ComparisonOperator -> NotificationType -> NotificationThreshold -> ({ "NotificationType" :: NotificationType, "ComparisonOperator" :: ComparisonOperator, "Threshold" :: NotificationThreshold, "ThresholdType" :: Maybe (ThresholdType) } -> { "NotificationType" :: NotificationType, "ComparisonOperator" :: ComparisonOperator, "Threshold" :: NotificationThreshold, "ThresholdType" :: Maybe (ThresholdType) }) -> Notification
 ```
 
 Constructs Notification's fields from required parameters
@@ -1426,7 +1426,7 @@ Encode ThresholdType
 
 ``` purescript
 newtype TimePeriod
-  = TimePeriod { "Start" :: NullOrUndefined (GenericTimestamp), "End" :: NullOrUndefined (GenericTimestamp) }
+  = TimePeriod { "Start" :: Maybe (GenericTimestamp), "End" :: Maybe (GenericTimestamp) }
 ```
 
 <p>The period of time covered by a budget. Has a start date and an end date. The start date must come before the end date. There are no restrictions on the end date. </p>
@@ -1451,7 +1451,7 @@ Constructs TimePeriod from required parameters
 #### `newTimePeriod'`
 
 ``` purescript
-newTimePeriod' :: ({ "Start" :: NullOrUndefined (GenericTimestamp), "End" :: NullOrUndefined (GenericTimestamp) } -> { "Start" :: NullOrUndefined (GenericTimestamp), "End" :: NullOrUndefined (GenericTimestamp) }) -> TimePeriod
+newTimePeriod' :: ({ "Start" :: Maybe (GenericTimestamp), "End" :: Maybe (GenericTimestamp) } -> { "Start" :: Maybe (GenericTimestamp), "End" :: Maybe (GenericTimestamp) }) -> TimePeriod
 ```
 
 Constructs TimePeriod's fields from required parameters

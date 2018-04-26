@@ -5,7 +5,6 @@ import Prelude
 import Data.Foreign.Class (class Decode, class Encode)
 import Data.Foreign.Generic (defaultOptions, genericDecode, genericEncode)
 import Data.Foreign.Generic.Types (Options)
-import Data.Foreign.NullOrUndefined (NullOrUndefined(..))
 import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Show (genericShow)
 import Data.Maybe (Maybe(..))
@@ -31,12 +30,12 @@ instance encodeAccountId :: Encode AccountId where encode = genericEncode option
 -- | <p>Represents the output of the <code>CreateBudget</code> operation. The content consists of the detailed metadata and data file information, and the current status of the <code>budget</code>.</p> <p>The ARN pattern for a budget is: <code>arn:aws:budgetservice::AccountId:budget/budgetName</code> </p>
 newtype Budget = Budget 
   { "BudgetName" :: (BudgetName)
-  , "BudgetLimit" :: NullOrUndefined (Spend)
-  , "CostFilters" :: NullOrUndefined (CostFilters)
-  , "CostTypes" :: NullOrUndefined (CostTypes)
+  , "BudgetLimit" :: Maybe (Spend)
+  , "CostFilters" :: Maybe (CostFilters)
+  , "CostTypes" :: Maybe (CostTypes)
   , "TimeUnit" :: (TimeUnit)
-  , "TimePeriod" :: NullOrUndefined (TimePeriod)
-  , "CalculatedSpend" :: NullOrUndefined (CalculatedSpend)
+  , "TimePeriod" :: Maybe (TimePeriod)
+  , "CalculatedSpend" :: Maybe (CalculatedSpend)
   , "BudgetType" :: (BudgetType)
   }
 derive instance newtypeBudget :: Newtype Budget _
@@ -47,12 +46,12 @@ instance encodeBudget :: Encode Budget where encode = genericEncode options
 
 -- | Constructs Budget from required parameters
 newBudget :: BudgetName -> BudgetType -> TimeUnit -> Budget
-newBudget _BudgetName _BudgetType _TimeUnit = Budget { "BudgetName": _BudgetName, "BudgetType": _BudgetType, "TimeUnit": _TimeUnit, "BudgetLimit": (NullOrUndefined Nothing), "CalculatedSpend": (NullOrUndefined Nothing), "CostFilters": (NullOrUndefined Nothing), "CostTypes": (NullOrUndefined Nothing), "TimePeriod": (NullOrUndefined Nothing) }
+newBudget _BudgetName _BudgetType _TimeUnit = Budget { "BudgetName": _BudgetName, "BudgetType": _BudgetType, "TimeUnit": _TimeUnit, "BudgetLimit": Nothing, "CalculatedSpend": Nothing, "CostFilters": Nothing, "CostTypes": Nothing, "TimePeriod": Nothing }
 
 -- | Constructs Budget's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newBudget' :: BudgetName -> BudgetType -> TimeUnit -> ( { "BudgetName" :: (BudgetName) , "BudgetLimit" :: NullOrUndefined (Spend) , "CostFilters" :: NullOrUndefined (CostFilters) , "CostTypes" :: NullOrUndefined (CostTypes) , "TimeUnit" :: (TimeUnit) , "TimePeriod" :: NullOrUndefined (TimePeriod) , "CalculatedSpend" :: NullOrUndefined (CalculatedSpend) , "BudgetType" :: (BudgetType) } -> {"BudgetName" :: (BudgetName) , "BudgetLimit" :: NullOrUndefined (Spend) , "CostFilters" :: NullOrUndefined (CostFilters) , "CostTypes" :: NullOrUndefined (CostTypes) , "TimeUnit" :: (TimeUnit) , "TimePeriod" :: NullOrUndefined (TimePeriod) , "CalculatedSpend" :: NullOrUndefined (CalculatedSpend) , "BudgetType" :: (BudgetType) } ) -> Budget
-newBudget' _BudgetName _BudgetType _TimeUnit customize = (Budget <<< customize) { "BudgetName": _BudgetName, "BudgetType": _BudgetType, "TimeUnit": _TimeUnit, "BudgetLimit": (NullOrUndefined Nothing), "CalculatedSpend": (NullOrUndefined Nothing), "CostFilters": (NullOrUndefined Nothing), "CostTypes": (NullOrUndefined Nothing), "TimePeriod": (NullOrUndefined Nothing) }
+newBudget' :: BudgetName -> BudgetType -> TimeUnit -> ( { "BudgetName" :: (BudgetName) , "BudgetLimit" :: Maybe (Spend) , "CostFilters" :: Maybe (CostFilters) , "CostTypes" :: Maybe (CostTypes) , "TimeUnit" :: (TimeUnit) , "TimePeriod" :: Maybe (TimePeriod) , "CalculatedSpend" :: Maybe (CalculatedSpend) , "BudgetType" :: (BudgetType) } -> {"BudgetName" :: (BudgetName) , "BudgetLimit" :: Maybe (Spend) , "CostFilters" :: Maybe (CostFilters) , "CostTypes" :: Maybe (CostTypes) , "TimeUnit" :: (TimeUnit) , "TimePeriod" :: Maybe (TimePeriod) , "CalculatedSpend" :: Maybe (CalculatedSpend) , "BudgetType" :: (BudgetType) } ) -> Budget
+newBudget' _BudgetName _BudgetType _TimeUnit customize = (Budget <<< customize) { "BudgetName": _BudgetName, "BudgetType": _BudgetType, "TimeUnit": _TimeUnit, "BudgetLimit": Nothing, "CalculatedSpend": Nothing, "CostFilters": Nothing, "CostTypes": Nothing, "TimePeriod": Nothing }
 
 
 
@@ -89,7 +88,7 @@ instance encodeBudgets :: Encode Budgets where encode = genericEncode options
 -- | <p>The spend objects associated with this budget. The <code>actualSpend</code> tracks how much you've used, cost, usage, or RI units, and the <code>forecastedSpend</code> tracks how much you are predicted to spend if your current usage remains steady.</p> <p>For example, if it is the 20th of the month and you have spent <code>50</code> dollars on Amazon EC2, your <code>actualSpend</code> is <code>50 USD</code>, and your <code>forecastedSpend</code> is <code>75 USD</code>.</p>
 newtype CalculatedSpend = CalculatedSpend 
   { "ActualSpend" :: (Spend)
-  , "ForecastedSpend" :: NullOrUndefined (Spend)
+  , "ForecastedSpend" :: Maybe (Spend)
   }
 derive instance newtypeCalculatedSpend :: Newtype CalculatedSpend _
 derive instance repGenericCalculatedSpend :: Generic CalculatedSpend _
@@ -99,12 +98,12 @@ instance encodeCalculatedSpend :: Encode CalculatedSpend where encode = genericE
 
 -- | Constructs CalculatedSpend from required parameters
 newCalculatedSpend :: Spend -> CalculatedSpend
-newCalculatedSpend _ActualSpend = CalculatedSpend { "ActualSpend": _ActualSpend, "ForecastedSpend": (NullOrUndefined Nothing) }
+newCalculatedSpend _ActualSpend = CalculatedSpend { "ActualSpend": _ActualSpend, "ForecastedSpend": Nothing }
 
 -- | Constructs CalculatedSpend's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newCalculatedSpend' :: Spend -> ( { "ActualSpend" :: (Spend) , "ForecastedSpend" :: NullOrUndefined (Spend) } -> {"ActualSpend" :: (Spend) , "ForecastedSpend" :: NullOrUndefined (Spend) } ) -> CalculatedSpend
-newCalculatedSpend' _ActualSpend customize = (CalculatedSpend <<< customize) { "ActualSpend": _ActualSpend, "ForecastedSpend": (NullOrUndefined Nothing) }
+newCalculatedSpend' :: Spend -> ( { "ActualSpend" :: (Spend) , "ForecastedSpend" :: Maybe (Spend) } -> {"ActualSpend" :: (Spend) , "ForecastedSpend" :: Maybe (Spend) } ) -> CalculatedSpend
+newCalculatedSpend' _ActualSpend customize = (CalculatedSpend <<< customize) { "ActualSpend": _ActualSpend, "ForecastedSpend": Nothing }
 
 
 
@@ -130,17 +129,17 @@ instance encodeCostFilters :: Encode CostFilters where encode = genericEncode op
 
 -- | <p>The types of cost included in a budget, such as tax and subscriptions.</p>
 newtype CostTypes = CostTypes 
-  { "IncludeTax" :: NullOrUndefined (NullableBoolean)
-  , "IncludeSubscription" :: NullOrUndefined (NullableBoolean)
-  , "UseBlended" :: NullOrUndefined (NullableBoolean)
-  , "IncludeRefund" :: NullOrUndefined (NullableBoolean)
-  , "IncludeCredit" :: NullOrUndefined (NullableBoolean)
-  , "IncludeUpfront" :: NullOrUndefined (NullableBoolean)
-  , "IncludeRecurring" :: NullOrUndefined (NullableBoolean)
-  , "IncludeOtherSubscription" :: NullOrUndefined (NullableBoolean)
-  , "IncludeSupport" :: NullOrUndefined (NullableBoolean)
-  , "IncludeDiscount" :: NullOrUndefined (NullableBoolean)
-  , "UseAmortized" :: NullOrUndefined (NullableBoolean)
+  { "IncludeTax" :: Maybe (NullableBoolean)
+  , "IncludeSubscription" :: Maybe (NullableBoolean)
+  , "UseBlended" :: Maybe (NullableBoolean)
+  , "IncludeRefund" :: Maybe (NullableBoolean)
+  , "IncludeCredit" :: Maybe (NullableBoolean)
+  , "IncludeUpfront" :: Maybe (NullableBoolean)
+  , "IncludeRecurring" :: Maybe (NullableBoolean)
+  , "IncludeOtherSubscription" :: Maybe (NullableBoolean)
+  , "IncludeSupport" :: Maybe (NullableBoolean)
+  , "IncludeDiscount" :: Maybe (NullableBoolean)
+  , "UseAmortized" :: Maybe (NullableBoolean)
   }
 derive instance newtypeCostTypes :: Newtype CostTypes _
 derive instance repGenericCostTypes :: Generic CostTypes _
@@ -150,12 +149,12 @@ instance encodeCostTypes :: Encode CostTypes where encode = genericEncode option
 
 -- | Constructs CostTypes from required parameters
 newCostTypes :: CostTypes
-newCostTypes  = CostTypes { "IncludeCredit": (NullOrUndefined Nothing), "IncludeDiscount": (NullOrUndefined Nothing), "IncludeOtherSubscription": (NullOrUndefined Nothing), "IncludeRecurring": (NullOrUndefined Nothing), "IncludeRefund": (NullOrUndefined Nothing), "IncludeSubscription": (NullOrUndefined Nothing), "IncludeSupport": (NullOrUndefined Nothing), "IncludeTax": (NullOrUndefined Nothing), "IncludeUpfront": (NullOrUndefined Nothing), "UseAmortized": (NullOrUndefined Nothing), "UseBlended": (NullOrUndefined Nothing) }
+newCostTypes  = CostTypes { "IncludeCredit": Nothing, "IncludeDiscount": Nothing, "IncludeOtherSubscription": Nothing, "IncludeRecurring": Nothing, "IncludeRefund": Nothing, "IncludeSubscription": Nothing, "IncludeSupport": Nothing, "IncludeTax": Nothing, "IncludeUpfront": Nothing, "UseAmortized": Nothing, "UseBlended": Nothing }
 
 -- | Constructs CostTypes's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newCostTypes' :: ( { "IncludeTax" :: NullOrUndefined (NullableBoolean) , "IncludeSubscription" :: NullOrUndefined (NullableBoolean) , "UseBlended" :: NullOrUndefined (NullableBoolean) , "IncludeRefund" :: NullOrUndefined (NullableBoolean) , "IncludeCredit" :: NullOrUndefined (NullableBoolean) , "IncludeUpfront" :: NullOrUndefined (NullableBoolean) , "IncludeRecurring" :: NullOrUndefined (NullableBoolean) , "IncludeOtherSubscription" :: NullOrUndefined (NullableBoolean) , "IncludeSupport" :: NullOrUndefined (NullableBoolean) , "IncludeDiscount" :: NullOrUndefined (NullableBoolean) , "UseAmortized" :: NullOrUndefined (NullableBoolean) } -> {"IncludeTax" :: NullOrUndefined (NullableBoolean) , "IncludeSubscription" :: NullOrUndefined (NullableBoolean) , "UseBlended" :: NullOrUndefined (NullableBoolean) , "IncludeRefund" :: NullOrUndefined (NullableBoolean) , "IncludeCredit" :: NullOrUndefined (NullableBoolean) , "IncludeUpfront" :: NullOrUndefined (NullableBoolean) , "IncludeRecurring" :: NullOrUndefined (NullableBoolean) , "IncludeOtherSubscription" :: NullOrUndefined (NullableBoolean) , "IncludeSupport" :: NullOrUndefined (NullableBoolean) , "IncludeDiscount" :: NullOrUndefined (NullableBoolean) , "UseAmortized" :: NullOrUndefined (NullableBoolean) } ) -> CostTypes
-newCostTypes'  customize = (CostTypes <<< customize) { "IncludeCredit": (NullOrUndefined Nothing), "IncludeDiscount": (NullOrUndefined Nothing), "IncludeOtherSubscription": (NullOrUndefined Nothing), "IncludeRecurring": (NullOrUndefined Nothing), "IncludeRefund": (NullOrUndefined Nothing), "IncludeSubscription": (NullOrUndefined Nothing), "IncludeSupport": (NullOrUndefined Nothing), "IncludeTax": (NullOrUndefined Nothing), "IncludeUpfront": (NullOrUndefined Nothing), "UseAmortized": (NullOrUndefined Nothing), "UseBlended": (NullOrUndefined Nothing) }
+newCostTypes' :: ( { "IncludeTax" :: Maybe (NullableBoolean) , "IncludeSubscription" :: Maybe (NullableBoolean) , "UseBlended" :: Maybe (NullableBoolean) , "IncludeRefund" :: Maybe (NullableBoolean) , "IncludeCredit" :: Maybe (NullableBoolean) , "IncludeUpfront" :: Maybe (NullableBoolean) , "IncludeRecurring" :: Maybe (NullableBoolean) , "IncludeOtherSubscription" :: Maybe (NullableBoolean) , "IncludeSupport" :: Maybe (NullableBoolean) , "IncludeDiscount" :: Maybe (NullableBoolean) , "UseAmortized" :: Maybe (NullableBoolean) } -> {"IncludeTax" :: Maybe (NullableBoolean) , "IncludeSubscription" :: Maybe (NullableBoolean) , "UseBlended" :: Maybe (NullableBoolean) , "IncludeRefund" :: Maybe (NullableBoolean) , "IncludeCredit" :: Maybe (NullableBoolean) , "IncludeUpfront" :: Maybe (NullableBoolean) , "IncludeRecurring" :: Maybe (NullableBoolean) , "IncludeOtherSubscription" :: Maybe (NullableBoolean) , "IncludeSupport" :: Maybe (NullableBoolean) , "IncludeDiscount" :: Maybe (NullableBoolean) , "UseAmortized" :: Maybe (NullableBoolean) } ) -> CostTypes
+newCostTypes'  customize = (CostTypes <<< customize) { "IncludeCredit": Nothing, "IncludeDiscount": Nothing, "IncludeOtherSubscription": Nothing, "IncludeRecurring": Nothing, "IncludeRefund": Nothing, "IncludeSubscription": Nothing, "IncludeSupport": Nothing, "IncludeTax": Nothing, "IncludeUpfront": Nothing, "UseAmortized": Nothing, "UseBlended": Nothing }
 
 
 
@@ -163,7 +162,7 @@ newCostTypes'  customize = (CostTypes <<< customize) { "IncludeCredit": (NullOrU
 newtype CreateBudgetRequest = CreateBudgetRequest 
   { "AccountId" :: (AccountId)
   , "Budget" :: (Budget)
-  , "NotificationsWithSubscribers" :: NullOrUndefined (NotificationWithSubscribersList)
+  , "NotificationsWithSubscribers" :: Maybe (NotificationWithSubscribersList)
   }
 derive instance newtypeCreateBudgetRequest :: Newtype CreateBudgetRequest _
 derive instance repGenericCreateBudgetRequest :: Generic CreateBudgetRequest _
@@ -173,12 +172,12 @@ instance encodeCreateBudgetRequest :: Encode CreateBudgetRequest where encode = 
 
 -- | Constructs CreateBudgetRequest from required parameters
 newCreateBudgetRequest :: AccountId -> Budget -> CreateBudgetRequest
-newCreateBudgetRequest _AccountId _Budget = CreateBudgetRequest { "AccountId": _AccountId, "Budget": _Budget, "NotificationsWithSubscribers": (NullOrUndefined Nothing) }
+newCreateBudgetRequest _AccountId _Budget = CreateBudgetRequest { "AccountId": _AccountId, "Budget": _Budget, "NotificationsWithSubscribers": Nothing }
 
 -- | Constructs CreateBudgetRequest's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newCreateBudgetRequest' :: AccountId -> Budget -> ( { "AccountId" :: (AccountId) , "Budget" :: (Budget) , "NotificationsWithSubscribers" :: NullOrUndefined (NotificationWithSubscribersList) } -> {"AccountId" :: (AccountId) , "Budget" :: (Budget) , "NotificationsWithSubscribers" :: NullOrUndefined (NotificationWithSubscribersList) } ) -> CreateBudgetRequest
-newCreateBudgetRequest' _AccountId _Budget customize = (CreateBudgetRequest <<< customize) { "AccountId": _AccountId, "Budget": _Budget, "NotificationsWithSubscribers": (NullOrUndefined Nothing) }
+newCreateBudgetRequest' :: AccountId -> Budget -> ( { "AccountId" :: (AccountId) , "Budget" :: (Budget) , "NotificationsWithSubscribers" :: Maybe (NotificationWithSubscribersList) } -> {"AccountId" :: (AccountId) , "Budget" :: (Budget) , "NotificationsWithSubscribers" :: Maybe (NotificationWithSubscribersList) } ) -> CreateBudgetRequest
+newCreateBudgetRequest' _AccountId _Budget customize = (CreateBudgetRequest <<< customize) { "AccountId": _AccountId, "Budget": _Budget, "NotificationsWithSubscribers": Nothing }
 
 
 
@@ -262,7 +261,7 @@ instance encodeCreateSubscriberResponse :: Encode CreateSubscriberResponse where
 
 -- | <p>You've exceeded the notification or subscriber limit.</p>
 newtype CreationLimitExceededException = CreationLimitExceededException 
-  { "Message" :: NullOrUndefined (ErrorMessage')
+  { "Message" :: Maybe (ErrorMessage')
   }
 derive instance newtypeCreationLimitExceededException :: Newtype CreationLimitExceededException _
 derive instance repGenericCreationLimitExceededException :: Generic CreationLimitExceededException _
@@ -272,12 +271,12 @@ instance encodeCreationLimitExceededException :: Encode CreationLimitExceededExc
 
 -- | Constructs CreationLimitExceededException from required parameters
 newCreationLimitExceededException :: CreationLimitExceededException
-newCreationLimitExceededException  = CreationLimitExceededException { "Message": (NullOrUndefined Nothing) }
+newCreationLimitExceededException  = CreationLimitExceededException { "Message": Nothing }
 
 -- | Constructs CreationLimitExceededException's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newCreationLimitExceededException' :: ( { "Message" :: NullOrUndefined (ErrorMessage') } -> {"Message" :: NullOrUndefined (ErrorMessage') } ) -> CreationLimitExceededException
-newCreationLimitExceededException'  customize = (CreationLimitExceededException <<< customize) { "Message": (NullOrUndefined Nothing) }
+newCreationLimitExceededException' :: ( { "Message" :: Maybe (ErrorMessage') } -> {"Message" :: Maybe (ErrorMessage') } ) -> CreationLimitExceededException
+newCreationLimitExceededException'  customize = (CreationLimitExceededException <<< customize) { "Message": Nothing }
 
 
 
@@ -404,7 +403,7 @@ newDescribeBudgetRequest' _AccountId _BudgetName customize = (DescribeBudgetRequ
 
 -- | <p> Response of DescribeBudget </p>
 newtype DescribeBudgetResponse = DescribeBudgetResponse 
-  { "Budget" :: NullOrUndefined (Budget)
+  { "Budget" :: Maybe (Budget)
   }
 derive instance newtypeDescribeBudgetResponse :: Newtype DescribeBudgetResponse _
 derive instance repGenericDescribeBudgetResponse :: Generic DescribeBudgetResponse _
@@ -414,20 +413,20 @@ instance encodeDescribeBudgetResponse :: Encode DescribeBudgetResponse where enc
 
 -- | Constructs DescribeBudgetResponse from required parameters
 newDescribeBudgetResponse :: DescribeBudgetResponse
-newDescribeBudgetResponse  = DescribeBudgetResponse { "Budget": (NullOrUndefined Nothing) }
+newDescribeBudgetResponse  = DescribeBudgetResponse { "Budget": Nothing }
 
 -- | Constructs DescribeBudgetResponse's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newDescribeBudgetResponse' :: ( { "Budget" :: NullOrUndefined (Budget) } -> {"Budget" :: NullOrUndefined (Budget) } ) -> DescribeBudgetResponse
-newDescribeBudgetResponse'  customize = (DescribeBudgetResponse <<< customize) { "Budget": (NullOrUndefined Nothing) }
+newDescribeBudgetResponse' :: ( { "Budget" :: Maybe (Budget) } -> {"Budget" :: Maybe (Budget) } ) -> DescribeBudgetResponse
+newDescribeBudgetResponse'  customize = (DescribeBudgetResponse <<< customize) { "Budget": Nothing }
 
 
 
 -- | <p> Request of DescribeBudgets </p>
 newtype DescribeBudgetsRequest = DescribeBudgetsRequest 
   { "AccountId" :: (AccountId)
-  , "MaxResults" :: NullOrUndefined (MaxResults)
-  , "NextToken" :: NullOrUndefined (GenericString)
+  , "MaxResults" :: Maybe (MaxResults)
+  , "NextToken" :: Maybe (GenericString)
   }
 derive instance newtypeDescribeBudgetsRequest :: Newtype DescribeBudgetsRequest _
 derive instance repGenericDescribeBudgetsRequest :: Generic DescribeBudgetsRequest _
@@ -437,19 +436,19 @@ instance encodeDescribeBudgetsRequest :: Encode DescribeBudgetsRequest where enc
 
 -- | Constructs DescribeBudgetsRequest from required parameters
 newDescribeBudgetsRequest :: AccountId -> DescribeBudgetsRequest
-newDescribeBudgetsRequest _AccountId = DescribeBudgetsRequest { "AccountId": _AccountId, "MaxResults": (NullOrUndefined Nothing), "NextToken": (NullOrUndefined Nothing) }
+newDescribeBudgetsRequest _AccountId = DescribeBudgetsRequest { "AccountId": _AccountId, "MaxResults": Nothing, "NextToken": Nothing }
 
 -- | Constructs DescribeBudgetsRequest's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newDescribeBudgetsRequest' :: AccountId -> ( { "AccountId" :: (AccountId) , "MaxResults" :: NullOrUndefined (MaxResults) , "NextToken" :: NullOrUndefined (GenericString) } -> {"AccountId" :: (AccountId) , "MaxResults" :: NullOrUndefined (MaxResults) , "NextToken" :: NullOrUndefined (GenericString) } ) -> DescribeBudgetsRequest
-newDescribeBudgetsRequest' _AccountId customize = (DescribeBudgetsRequest <<< customize) { "AccountId": _AccountId, "MaxResults": (NullOrUndefined Nothing), "NextToken": (NullOrUndefined Nothing) }
+newDescribeBudgetsRequest' :: AccountId -> ( { "AccountId" :: (AccountId) , "MaxResults" :: Maybe (MaxResults) , "NextToken" :: Maybe (GenericString) } -> {"AccountId" :: (AccountId) , "MaxResults" :: Maybe (MaxResults) , "NextToken" :: Maybe (GenericString) } ) -> DescribeBudgetsRequest
+newDescribeBudgetsRequest' _AccountId customize = (DescribeBudgetsRequest <<< customize) { "AccountId": _AccountId, "MaxResults": Nothing, "NextToken": Nothing }
 
 
 
 -- | <p> Response of DescribeBudgets </p>
 newtype DescribeBudgetsResponse = DescribeBudgetsResponse 
-  { "Budgets" :: NullOrUndefined (Budgets)
-  , "NextToken" :: NullOrUndefined (GenericString)
+  { "Budgets" :: Maybe (Budgets)
+  , "NextToken" :: Maybe (GenericString)
   }
 derive instance newtypeDescribeBudgetsResponse :: Newtype DescribeBudgetsResponse _
 derive instance repGenericDescribeBudgetsResponse :: Generic DescribeBudgetsResponse _
@@ -459,12 +458,12 @@ instance encodeDescribeBudgetsResponse :: Encode DescribeBudgetsResponse where e
 
 -- | Constructs DescribeBudgetsResponse from required parameters
 newDescribeBudgetsResponse :: DescribeBudgetsResponse
-newDescribeBudgetsResponse  = DescribeBudgetsResponse { "Budgets": (NullOrUndefined Nothing), "NextToken": (NullOrUndefined Nothing) }
+newDescribeBudgetsResponse  = DescribeBudgetsResponse { "Budgets": Nothing, "NextToken": Nothing }
 
 -- | Constructs DescribeBudgetsResponse's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newDescribeBudgetsResponse' :: ( { "Budgets" :: NullOrUndefined (Budgets) , "NextToken" :: NullOrUndefined (GenericString) } -> {"Budgets" :: NullOrUndefined (Budgets) , "NextToken" :: NullOrUndefined (GenericString) } ) -> DescribeBudgetsResponse
-newDescribeBudgetsResponse'  customize = (DescribeBudgetsResponse <<< customize) { "Budgets": (NullOrUndefined Nothing), "NextToken": (NullOrUndefined Nothing) }
+newDescribeBudgetsResponse' :: ( { "Budgets" :: Maybe (Budgets) , "NextToken" :: Maybe (GenericString) } -> {"Budgets" :: Maybe (Budgets) , "NextToken" :: Maybe (GenericString) } ) -> DescribeBudgetsResponse
+newDescribeBudgetsResponse'  customize = (DescribeBudgetsResponse <<< customize) { "Budgets": Nothing, "NextToken": Nothing }
 
 
 
@@ -472,8 +471,8 @@ newDescribeBudgetsResponse'  customize = (DescribeBudgetsResponse <<< customize)
 newtype DescribeNotificationsForBudgetRequest = DescribeNotificationsForBudgetRequest 
   { "AccountId" :: (AccountId)
   , "BudgetName" :: (BudgetName)
-  , "MaxResults" :: NullOrUndefined (MaxResults)
-  , "NextToken" :: NullOrUndefined (GenericString)
+  , "MaxResults" :: Maybe (MaxResults)
+  , "NextToken" :: Maybe (GenericString)
   }
 derive instance newtypeDescribeNotificationsForBudgetRequest :: Newtype DescribeNotificationsForBudgetRequest _
 derive instance repGenericDescribeNotificationsForBudgetRequest :: Generic DescribeNotificationsForBudgetRequest _
@@ -483,19 +482,19 @@ instance encodeDescribeNotificationsForBudgetRequest :: Encode DescribeNotificat
 
 -- | Constructs DescribeNotificationsForBudgetRequest from required parameters
 newDescribeNotificationsForBudgetRequest :: AccountId -> BudgetName -> DescribeNotificationsForBudgetRequest
-newDescribeNotificationsForBudgetRequest _AccountId _BudgetName = DescribeNotificationsForBudgetRequest { "AccountId": _AccountId, "BudgetName": _BudgetName, "MaxResults": (NullOrUndefined Nothing), "NextToken": (NullOrUndefined Nothing) }
+newDescribeNotificationsForBudgetRequest _AccountId _BudgetName = DescribeNotificationsForBudgetRequest { "AccountId": _AccountId, "BudgetName": _BudgetName, "MaxResults": Nothing, "NextToken": Nothing }
 
 -- | Constructs DescribeNotificationsForBudgetRequest's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newDescribeNotificationsForBudgetRequest' :: AccountId -> BudgetName -> ( { "AccountId" :: (AccountId) , "BudgetName" :: (BudgetName) , "MaxResults" :: NullOrUndefined (MaxResults) , "NextToken" :: NullOrUndefined (GenericString) } -> {"AccountId" :: (AccountId) , "BudgetName" :: (BudgetName) , "MaxResults" :: NullOrUndefined (MaxResults) , "NextToken" :: NullOrUndefined (GenericString) } ) -> DescribeNotificationsForBudgetRequest
-newDescribeNotificationsForBudgetRequest' _AccountId _BudgetName customize = (DescribeNotificationsForBudgetRequest <<< customize) { "AccountId": _AccountId, "BudgetName": _BudgetName, "MaxResults": (NullOrUndefined Nothing), "NextToken": (NullOrUndefined Nothing) }
+newDescribeNotificationsForBudgetRequest' :: AccountId -> BudgetName -> ( { "AccountId" :: (AccountId) , "BudgetName" :: (BudgetName) , "MaxResults" :: Maybe (MaxResults) , "NextToken" :: Maybe (GenericString) } -> {"AccountId" :: (AccountId) , "BudgetName" :: (BudgetName) , "MaxResults" :: Maybe (MaxResults) , "NextToken" :: Maybe (GenericString) } ) -> DescribeNotificationsForBudgetRequest
+newDescribeNotificationsForBudgetRequest' _AccountId _BudgetName customize = (DescribeNotificationsForBudgetRequest <<< customize) { "AccountId": _AccountId, "BudgetName": _BudgetName, "MaxResults": Nothing, "NextToken": Nothing }
 
 
 
 -- | <p> Response of GetNotificationsForBudget </p>
 newtype DescribeNotificationsForBudgetResponse = DescribeNotificationsForBudgetResponse 
-  { "Notifications" :: NullOrUndefined (Notifications)
-  , "NextToken" :: NullOrUndefined (GenericString)
+  { "Notifications" :: Maybe (Notifications)
+  , "NextToken" :: Maybe (GenericString)
   }
 derive instance newtypeDescribeNotificationsForBudgetResponse :: Newtype DescribeNotificationsForBudgetResponse _
 derive instance repGenericDescribeNotificationsForBudgetResponse :: Generic DescribeNotificationsForBudgetResponse _
@@ -505,12 +504,12 @@ instance encodeDescribeNotificationsForBudgetResponse :: Encode DescribeNotifica
 
 -- | Constructs DescribeNotificationsForBudgetResponse from required parameters
 newDescribeNotificationsForBudgetResponse :: DescribeNotificationsForBudgetResponse
-newDescribeNotificationsForBudgetResponse  = DescribeNotificationsForBudgetResponse { "NextToken": (NullOrUndefined Nothing), "Notifications": (NullOrUndefined Nothing) }
+newDescribeNotificationsForBudgetResponse  = DescribeNotificationsForBudgetResponse { "NextToken": Nothing, "Notifications": Nothing }
 
 -- | Constructs DescribeNotificationsForBudgetResponse's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newDescribeNotificationsForBudgetResponse' :: ( { "Notifications" :: NullOrUndefined (Notifications) , "NextToken" :: NullOrUndefined (GenericString) } -> {"Notifications" :: NullOrUndefined (Notifications) , "NextToken" :: NullOrUndefined (GenericString) } ) -> DescribeNotificationsForBudgetResponse
-newDescribeNotificationsForBudgetResponse'  customize = (DescribeNotificationsForBudgetResponse <<< customize) { "NextToken": (NullOrUndefined Nothing), "Notifications": (NullOrUndefined Nothing) }
+newDescribeNotificationsForBudgetResponse' :: ( { "Notifications" :: Maybe (Notifications) , "NextToken" :: Maybe (GenericString) } -> {"Notifications" :: Maybe (Notifications) , "NextToken" :: Maybe (GenericString) } ) -> DescribeNotificationsForBudgetResponse
+newDescribeNotificationsForBudgetResponse'  customize = (DescribeNotificationsForBudgetResponse <<< customize) { "NextToken": Nothing, "Notifications": Nothing }
 
 
 
@@ -519,8 +518,8 @@ newtype DescribeSubscribersForNotificationRequest = DescribeSubscribersForNotifi
   { "AccountId" :: (AccountId)
   , "BudgetName" :: (BudgetName)
   , "Notification" :: (Notification)
-  , "MaxResults" :: NullOrUndefined (MaxResults)
-  , "NextToken" :: NullOrUndefined (GenericString)
+  , "MaxResults" :: Maybe (MaxResults)
+  , "NextToken" :: Maybe (GenericString)
   }
 derive instance newtypeDescribeSubscribersForNotificationRequest :: Newtype DescribeSubscribersForNotificationRequest _
 derive instance repGenericDescribeSubscribersForNotificationRequest :: Generic DescribeSubscribersForNotificationRequest _
@@ -530,19 +529,19 @@ instance encodeDescribeSubscribersForNotificationRequest :: Encode DescribeSubsc
 
 -- | Constructs DescribeSubscribersForNotificationRequest from required parameters
 newDescribeSubscribersForNotificationRequest :: AccountId -> BudgetName -> Notification -> DescribeSubscribersForNotificationRequest
-newDescribeSubscribersForNotificationRequest _AccountId _BudgetName _Notification = DescribeSubscribersForNotificationRequest { "AccountId": _AccountId, "BudgetName": _BudgetName, "Notification": _Notification, "MaxResults": (NullOrUndefined Nothing), "NextToken": (NullOrUndefined Nothing) }
+newDescribeSubscribersForNotificationRequest _AccountId _BudgetName _Notification = DescribeSubscribersForNotificationRequest { "AccountId": _AccountId, "BudgetName": _BudgetName, "Notification": _Notification, "MaxResults": Nothing, "NextToken": Nothing }
 
 -- | Constructs DescribeSubscribersForNotificationRequest's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newDescribeSubscribersForNotificationRequest' :: AccountId -> BudgetName -> Notification -> ( { "AccountId" :: (AccountId) , "BudgetName" :: (BudgetName) , "Notification" :: (Notification) , "MaxResults" :: NullOrUndefined (MaxResults) , "NextToken" :: NullOrUndefined (GenericString) } -> {"AccountId" :: (AccountId) , "BudgetName" :: (BudgetName) , "Notification" :: (Notification) , "MaxResults" :: NullOrUndefined (MaxResults) , "NextToken" :: NullOrUndefined (GenericString) } ) -> DescribeSubscribersForNotificationRequest
-newDescribeSubscribersForNotificationRequest' _AccountId _BudgetName _Notification customize = (DescribeSubscribersForNotificationRequest <<< customize) { "AccountId": _AccountId, "BudgetName": _BudgetName, "Notification": _Notification, "MaxResults": (NullOrUndefined Nothing), "NextToken": (NullOrUndefined Nothing) }
+newDescribeSubscribersForNotificationRequest' :: AccountId -> BudgetName -> Notification -> ( { "AccountId" :: (AccountId) , "BudgetName" :: (BudgetName) , "Notification" :: (Notification) , "MaxResults" :: Maybe (MaxResults) , "NextToken" :: Maybe (GenericString) } -> {"AccountId" :: (AccountId) , "BudgetName" :: (BudgetName) , "Notification" :: (Notification) , "MaxResults" :: Maybe (MaxResults) , "NextToken" :: Maybe (GenericString) } ) -> DescribeSubscribersForNotificationRequest
+newDescribeSubscribersForNotificationRequest' _AccountId _BudgetName _Notification customize = (DescribeSubscribersForNotificationRequest <<< customize) { "AccountId": _AccountId, "BudgetName": _BudgetName, "Notification": _Notification, "MaxResults": Nothing, "NextToken": Nothing }
 
 
 
 -- | <p> Response of DescribeSubscribersForNotification </p>
 newtype DescribeSubscribersForNotificationResponse = DescribeSubscribersForNotificationResponse 
-  { "Subscribers" :: NullOrUndefined (Subscribers)
-  , "NextToken" :: NullOrUndefined (GenericString)
+  { "Subscribers" :: Maybe (Subscribers)
+  , "NextToken" :: Maybe (GenericString)
   }
 derive instance newtypeDescribeSubscribersForNotificationResponse :: Newtype DescribeSubscribersForNotificationResponse _
 derive instance repGenericDescribeSubscribersForNotificationResponse :: Generic DescribeSubscribersForNotificationResponse _
@@ -552,12 +551,12 @@ instance encodeDescribeSubscribersForNotificationResponse :: Encode DescribeSubs
 
 -- | Constructs DescribeSubscribersForNotificationResponse from required parameters
 newDescribeSubscribersForNotificationResponse :: DescribeSubscribersForNotificationResponse
-newDescribeSubscribersForNotificationResponse  = DescribeSubscribersForNotificationResponse { "NextToken": (NullOrUndefined Nothing), "Subscribers": (NullOrUndefined Nothing) }
+newDescribeSubscribersForNotificationResponse  = DescribeSubscribersForNotificationResponse { "NextToken": Nothing, "Subscribers": Nothing }
 
 -- | Constructs DescribeSubscribersForNotificationResponse's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newDescribeSubscribersForNotificationResponse' :: ( { "Subscribers" :: NullOrUndefined (Subscribers) , "NextToken" :: NullOrUndefined (GenericString) } -> {"Subscribers" :: NullOrUndefined (Subscribers) , "NextToken" :: NullOrUndefined (GenericString) } ) -> DescribeSubscribersForNotificationResponse
-newDescribeSubscribersForNotificationResponse'  customize = (DescribeSubscribersForNotificationResponse <<< customize) { "NextToken": (NullOrUndefined Nothing), "Subscribers": (NullOrUndefined Nothing) }
+newDescribeSubscribersForNotificationResponse' :: ( { "Subscribers" :: Maybe (Subscribers) , "NextToken" :: Maybe (GenericString) } -> {"Subscribers" :: Maybe (Subscribers) , "NextToken" :: Maybe (GenericString) } ) -> DescribeSubscribersForNotificationResponse
+newDescribeSubscribersForNotificationResponse'  customize = (DescribeSubscribersForNotificationResponse <<< customize) { "NextToken": Nothing, "Subscribers": Nothing }
 
 
 
@@ -572,7 +571,7 @@ instance encodeDimensionValues :: Encode DimensionValues where encode = genericE
 
 -- | <p>The budget name already exists. Budget names must be unique within an account.</p>
 newtype DuplicateRecordException = DuplicateRecordException 
-  { "Message" :: NullOrUndefined (ErrorMessage')
+  { "Message" :: Maybe (ErrorMessage')
   }
 derive instance newtypeDuplicateRecordException :: Newtype DuplicateRecordException _
 derive instance repGenericDuplicateRecordException :: Generic DuplicateRecordException _
@@ -582,18 +581,18 @@ instance encodeDuplicateRecordException :: Encode DuplicateRecordException where
 
 -- | Constructs DuplicateRecordException from required parameters
 newDuplicateRecordException :: DuplicateRecordException
-newDuplicateRecordException  = DuplicateRecordException { "Message": (NullOrUndefined Nothing) }
+newDuplicateRecordException  = DuplicateRecordException { "Message": Nothing }
 
 -- | Constructs DuplicateRecordException's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newDuplicateRecordException' :: ( { "Message" :: NullOrUndefined (ErrorMessage') } -> {"Message" :: NullOrUndefined (ErrorMessage') } ) -> DuplicateRecordException
-newDuplicateRecordException'  customize = (DuplicateRecordException <<< customize) { "Message": (NullOrUndefined Nothing) }
+newDuplicateRecordException' :: ( { "Message" :: Maybe (ErrorMessage') } -> {"Message" :: Maybe (ErrorMessage') } ) -> DuplicateRecordException
+newDuplicateRecordException'  customize = (DuplicateRecordException <<< customize) { "Message": Nothing }
 
 
 
 -- | <p>The pagination token expired.</p>
 newtype ExpiredNextTokenException = ExpiredNextTokenException 
-  { "Message" :: NullOrUndefined (ErrorMessage')
+  { "Message" :: Maybe (ErrorMessage')
   }
 derive instance newtypeExpiredNextTokenException :: Newtype ExpiredNextTokenException _
 derive instance repGenericExpiredNextTokenException :: Generic ExpiredNextTokenException _
@@ -603,12 +602,12 @@ instance encodeExpiredNextTokenException :: Encode ExpiredNextTokenException whe
 
 -- | Constructs ExpiredNextTokenException from required parameters
 newExpiredNextTokenException :: ExpiredNextTokenException
-newExpiredNextTokenException  = ExpiredNextTokenException { "Message": (NullOrUndefined Nothing) }
+newExpiredNextTokenException  = ExpiredNextTokenException { "Message": Nothing }
 
 -- | Constructs ExpiredNextTokenException's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newExpiredNextTokenException' :: ( { "Message" :: NullOrUndefined (ErrorMessage') } -> {"Message" :: NullOrUndefined (ErrorMessage') } ) -> ExpiredNextTokenException
-newExpiredNextTokenException'  customize = (ExpiredNextTokenException <<< customize) { "Message": (NullOrUndefined Nothing) }
+newExpiredNextTokenException' :: ( { "Message" :: Maybe (ErrorMessage') } -> {"Message" :: Maybe (ErrorMessage') } ) -> ExpiredNextTokenException
+newExpiredNextTokenException'  customize = (ExpiredNextTokenException <<< customize) { "Message": Nothing }
 
 
 
@@ -634,7 +633,7 @@ instance encodeGenericTimestamp :: Encode GenericTimestamp where encode = generi
 
 -- | <p>An error on the server occurred during the processing of your request. Try again later.</p>
 newtype InternalErrorException = InternalErrorException 
-  { "Message" :: NullOrUndefined (ErrorMessage')
+  { "Message" :: Maybe (ErrorMessage')
   }
 derive instance newtypeInternalErrorException :: Newtype InternalErrorException _
 derive instance repGenericInternalErrorException :: Generic InternalErrorException _
@@ -644,18 +643,18 @@ instance encodeInternalErrorException :: Encode InternalErrorException where enc
 
 -- | Constructs InternalErrorException from required parameters
 newInternalErrorException :: InternalErrorException
-newInternalErrorException  = InternalErrorException { "Message": (NullOrUndefined Nothing) }
+newInternalErrorException  = InternalErrorException { "Message": Nothing }
 
 -- | Constructs InternalErrorException's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newInternalErrorException' :: ( { "Message" :: NullOrUndefined (ErrorMessage') } -> {"Message" :: NullOrUndefined (ErrorMessage') } ) -> InternalErrorException
-newInternalErrorException'  customize = (InternalErrorException <<< customize) { "Message": (NullOrUndefined Nothing) }
+newInternalErrorException' :: ( { "Message" :: Maybe (ErrorMessage') } -> {"Message" :: Maybe (ErrorMessage') } ) -> InternalErrorException
+newInternalErrorException'  customize = (InternalErrorException <<< customize) { "Message": Nothing }
 
 
 
 -- | <p>The pagination token is invalid.</p>
 newtype InvalidNextTokenException = InvalidNextTokenException 
-  { "Message" :: NullOrUndefined (ErrorMessage')
+  { "Message" :: Maybe (ErrorMessage')
   }
 derive instance newtypeInvalidNextTokenException :: Newtype InvalidNextTokenException _
 derive instance repGenericInvalidNextTokenException :: Generic InvalidNextTokenException _
@@ -665,18 +664,18 @@ instance encodeInvalidNextTokenException :: Encode InvalidNextTokenException whe
 
 -- | Constructs InvalidNextTokenException from required parameters
 newInvalidNextTokenException :: InvalidNextTokenException
-newInvalidNextTokenException  = InvalidNextTokenException { "Message": (NullOrUndefined Nothing) }
+newInvalidNextTokenException  = InvalidNextTokenException { "Message": Nothing }
 
 -- | Constructs InvalidNextTokenException's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newInvalidNextTokenException' :: ( { "Message" :: NullOrUndefined (ErrorMessage') } -> {"Message" :: NullOrUndefined (ErrorMessage') } ) -> InvalidNextTokenException
-newInvalidNextTokenException'  customize = (InvalidNextTokenException <<< customize) { "Message": (NullOrUndefined Nothing) }
+newInvalidNextTokenException' :: ( { "Message" :: Maybe (ErrorMessage') } -> {"Message" :: Maybe (ErrorMessage') } ) -> InvalidNextTokenException
+newInvalidNextTokenException'  customize = (InvalidNextTokenException <<< customize) { "Message": Nothing }
 
 
 
 -- | <p>An error on the client occurred. Typically, the cause is an invalid input value.</p>
 newtype InvalidParameterException = InvalidParameterException 
-  { "Message" :: NullOrUndefined (ErrorMessage')
+  { "Message" :: Maybe (ErrorMessage')
   }
 derive instance newtypeInvalidParameterException :: Newtype InvalidParameterException _
 derive instance repGenericInvalidParameterException :: Generic InvalidParameterException _
@@ -686,12 +685,12 @@ instance encodeInvalidParameterException :: Encode InvalidParameterException whe
 
 -- | Constructs InvalidParameterException from required parameters
 newInvalidParameterException :: InvalidParameterException
-newInvalidParameterException  = InvalidParameterException { "Message": (NullOrUndefined Nothing) }
+newInvalidParameterException  = InvalidParameterException { "Message": Nothing }
 
 -- | Constructs InvalidParameterException's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newInvalidParameterException' :: ( { "Message" :: NullOrUndefined (ErrorMessage') } -> {"Message" :: NullOrUndefined (ErrorMessage') } ) -> InvalidParameterException
-newInvalidParameterException'  customize = (InvalidParameterException <<< customize) { "Message": (NullOrUndefined Nothing) }
+newInvalidParameterException' :: ( { "Message" :: Maybe (ErrorMessage') } -> {"Message" :: Maybe (ErrorMessage') } ) -> InvalidParameterException
+newInvalidParameterException'  customize = (InvalidParameterException <<< customize) { "Message": Nothing }
 
 
 
@@ -707,7 +706,7 @@ instance encodeMaxResults :: Encode MaxResults where encode = genericEncode opti
 
 -- | <p>We can’t locate the resource that you specified.</p>
 newtype NotFoundException = NotFoundException 
-  { "Message" :: NullOrUndefined (ErrorMessage')
+  { "Message" :: Maybe (ErrorMessage')
   }
 derive instance newtypeNotFoundException :: Newtype NotFoundException _
 derive instance repGenericNotFoundException :: Generic NotFoundException _
@@ -717,12 +716,12 @@ instance encodeNotFoundException :: Encode NotFoundException where encode = gene
 
 -- | Constructs NotFoundException from required parameters
 newNotFoundException :: NotFoundException
-newNotFoundException  = NotFoundException { "Message": (NullOrUndefined Nothing) }
+newNotFoundException  = NotFoundException { "Message": Nothing }
 
 -- | Constructs NotFoundException's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newNotFoundException' :: ( { "Message" :: NullOrUndefined (ErrorMessage') } -> {"Message" :: NullOrUndefined (ErrorMessage') } ) -> NotFoundException
-newNotFoundException'  customize = (NotFoundException <<< customize) { "Message": (NullOrUndefined Nothing) }
+newNotFoundException' :: ( { "Message" :: Maybe (ErrorMessage') } -> {"Message" :: Maybe (ErrorMessage') } ) -> NotFoundException
+newNotFoundException'  customize = (NotFoundException <<< customize) { "Message": Nothing }
 
 
 
@@ -731,7 +730,7 @@ newtype Notification = Notification
   { "NotificationType" :: (NotificationType)
   , "ComparisonOperator" :: (ComparisonOperator)
   , "Threshold" :: (NotificationThreshold)
-  , "ThresholdType" :: NullOrUndefined (ThresholdType)
+  , "ThresholdType" :: Maybe (ThresholdType)
   }
 derive instance newtypeNotification :: Newtype Notification _
 derive instance repGenericNotification :: Generic Notification _
@@ -741,12 +740,12 @@ instance encodeNotification :: Encode Notification where encode = genericEncode 
 
 -- | Constructs Notification from required parameters
 newNotification :: ComparisonOperator -> NotificationType -> NotificationThreshold -> Notification
-newNotification _ComparisonOperator _NotificationType _Threshold = Notification { "ComparisonOperator": _ComparisonOperator, "NotificationType": _NotificationType, "Threshold": _Threshold, "ThresholdType": (NullOrUndefined Nothing) }
+newNotification _ComparisonOperator _NotificationType _Threshold = Notification { "ComparisonOperator": _ComparisonOperator, "NotificationType": _NotificationType, "Threshold": _Threshold, "ThresholdType": Nothing }
 
 -- | Constructs Notification's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newNotification' :: ComparisonOperator -> NotificationType -> NotificationThreshold -> ( { "NotificationType" :: (NotificationType) , "ComparisonOperator" :: (ComparisonOperator) , "Threshold" :: (NotificationThreshold) , "ThresholdType" :: NullOrUndefined (ThresholdType) } -> {"NotificationType" :: (NotificationType) , "ComparisonOperator" :: (ComparisonOperator) , "Threshold" :: (NotificationThreshold) , "ThresholdType" :: NullOrUndefined (ThresholdType) } ) -> Notification
-newNotification' _ComparisonOperator _NotificationType _Threshold customize = (Notification <<< customize) { "ComparisonOperator": _ComparisonOperator, "NotificationType": _NotificationType, "Threshold": _Threshold, "ThresholdType": (NullOrUndefined Nothing) }
+newNotification' :: ComparisonOperator -> NotificationType -> NotificationThreshold -> ( { "NotificationType" :: (NotificationType) , "ComparisonOperator" :: (ComparisonOperator) , "Threshold" :: (NotificationThreshold) , "ThresholdType" :: Maybe (ThresholdType) } -> {"NotificationType" :: (NotificationType) , "ComparisonOperator" :: (ComparisonOperator) , "Threshold" :: (NotificationThreshold) , "ThresholdType" :: Maybe (ThresholdType) } ) -> Notification
+newNotification' _ComparisonOperator _NotificationType _Threshold customize = (Notification <<< customize) { "ComparisonOperator": _ComparisonOperator, "NotificationType": _NotificationType, "Threshold": _Threshold, "ThresholdType": Nothing }
 
 
 
@@ -917,8 +916,8 @@ instance encodeThresholdType :: Encode ThresholdType where encode = genericEncod
 
 -- | <p>The period of time covered by a budget. Has a start date and an end date. The start date must come before the end date. There are no restrictions on the end date. </p>
 newtype TimePeriod = TimePeriod 
-  { "Start" :: NullOrUndefined (GenericTimestamp)
-  , "End" :: NullOrUndefined (GenericTimestamp)
+  { "Start" :: Maybe (GenericTimestamp)
+  , "End" :: Maybe (GenericTimestamp)
   }
 derive instance newtypeTimePeriod :: Newtype TimePeriod _
 derive instance repGenericTimePeriod :: Generic TimePeriod _
@@ -928,12 +927,12 @@ instance encodeTimePeriod :: Encode TimePeriod where encode = genericEncode opti
 
 -- | Constructs TimePeriod from required parameters
 newTimePeriod :: TimePeriod
-newTimePeriod  = TimePeriod { "End": (NullOrUndefined Nothing), "Start": (NullOrUndefined Nothing) }
+newTimePeriod  = TimePeriod { "End": Nothing, "Start": Nothing }
 
 -- | Constructs TimePeriod's fields from required parameters
 --   This may be useful if you need to immediately overwrite some of the optional values
-newTimePeriod' :: ( { "Start" :: NullOrUndefined (GenericTimestamp) , "End" :: NullOrUndefined (GenericTimestamp) } -> {"Start" :: NullOrUndefined (GenericTimestamp) , "End" :: NullOrUndefined (GenericTimestamp) } ) -> TimePeriod
-newTimePeriod'  customize = (TimePeriod <<< customize) { "End": (NullOrUndefined Nothing), "Start": (NullOrUndefined Nothing) }
+newTimePeriod' :: ( { "Start" :: Maybe (GenericTimestamp) , "End" :: Maybe (GenericTimestamp) } -> {"Start" :: Maybe (GenericTimestamp) , "End" :: Maybe (GenericTimestamp) } ) -> TimePeriod
+newTimePeriod'  customize = (TimePeriod <<< customize) { "End": Nothing, "Start": Nothing }
 
 
 
